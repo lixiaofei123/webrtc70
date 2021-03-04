@@ -83,6 +83,8 @@ struct VideoCodecH264 {
   const uint8_t* ppsData;
   size_t ppsLen;
   H264::Profile profile;
+
+  unsigned char numberOfTemporalLayers;
 };
 
 #ifndef DISABLE_H265	
@@ -99,6 +101,8 @@ struct VideoCodecH265 {
   size_t spsLen;	
   const uint8_t* ppsData;	
   size_t ppsLen;	
+
+  unsigned char numberOfTemporalLayers;
 };	
 #endif
 

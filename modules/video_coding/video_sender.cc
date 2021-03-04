@@ -86,7 +86,15 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
     // This is mainly for unit testing, disabling frame dropping.
     // TODO(sprang): Add a better way to disable frame dropping.
     numLayers = sendCodec->simulcastStream[0].numberOfTemporalLayers;
-  } else {
+  } else if(sendCodec->codecType == kVideoCodecH264 ){
+      numLayers = sendCodec->H264().numberOfTemporalLayers;
+  }
+  #ifndef DISABLE_H265	
+  else if(sendCodec->codecType == kVideoCodecH265){
+    numLayers = sendCodec->H265().numberOfTemporalLayers;
+  }
+  #endif
+  else {
     numLayers = 1;
   }
 
