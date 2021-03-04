@@ -86,15 +86,7 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
     // This is mainly for unit testing, disabling frame dropping.
     // TODO(sprang): Add a better way to disable frame dropping.
     numLayers = sendCodec->simulcastStream[0].numberOfTemporalLayers;
-  } else if(sendCodec->codecType == kVideoCodecH264 ){
-      numLayers = sendCodec->H264().numberOfTemporalLayers;
-  }
-  #ifndef DISABLE_H265	
-  else if(sendCodec->codecType == kVideoCodecH265){
-    numLayers = sendCodec->H265().numberOfTemporalLayers;
-  }
-  #endif
-  else {
+  }else {
     numLayers = 1;
   }
 
@@ -106,6 +98,16 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
   } else if (frame_dropper_enabled_) {
     _mediaOpt.EnableFrameDropper(true);
   }
+
+  if(sendCodec->codecType == kVideoCodecH264 ){
+    _mediaOpt.EnableFrameDropper(false);
+  }
+  #ifndef DISABLE_H265	
+  else if(sendCodec->codecType == kVideoCodecH265){
+    _mediaOpt.EnableFrameDropper(false);
+  }
+  #endif
+
 
   {
     rtc::CritScope cs(&params_crit_);

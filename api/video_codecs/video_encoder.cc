@@ -54,7 +54,6 @@ VideoCodecH264 VideoEncoder::GetDefaultH264Settings() {
   h264_settings.ppsData = nullptr;
   h264_settings.ppsLen = 0;
   h264_settings.profile = H264::kProfileConstrainedBaseline;
-  h264_settings.numberOfTemporalLayers = 1;
 
   return h264_settings;
 }
@@ -71,7 +70,6 @@ VideoCodecH265 VideoEncoder::GetDefaultH265Settings() {
   h265_settings.spsLen = 0;	
   h265_settings.ppsData = nullptr;	
   h265_settings.ppsLen = 0;	
-  h265_settings.numberOfTemporalLayers = 1;
 
   return h265_settings;	
 }	
