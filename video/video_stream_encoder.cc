@@ -807,21 +807,21 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   }
   initial_framedrop_ = kMaxInitialFramedrop;
 
-  if (EncoderPaused()) {
-    // Storing references to a native buffer risks blocking frame capture.
-    if (video_frame.video_frame_buffer()->type() !=
-        VideoFrameBuffer::Type::kNative) {
-      if (pending_frame_)
-        TraceFrameDropStart();
-      pending_frame_ = video_frame;
-      pending_frame_post_time_us_ = time_when_posted_us;
-    } else {
-      // Ensure that any previously stored frame is dropped.
-      pending_frame_.reset();
-      TraceFrameDropStart();
-    }
-    return;
-  }
+  // if (EncoderPaused()) {
+  //   // Storing references to a native buffer risks blocking frame capture.
+  //   if (video_frame.video_frame_buffer()->type() !=
+  //       VideoFrameBuffer::Type::kNative) {
+  //     if (pending_frame_)
+  //       TraceFrameDropStart();
+  //     pending_frame_ = video_frame;
+  //     pending_frame_post_time_us_ = time_when_posted_us;
+  //   } else {
+  //     // Ensure that any previously stored frame is dropped.
+  //     pending_frame_.reset();
+  //     TraceFrameDropStart();
+  //   }
+  //   return;
+  // }
 
   pending_frame_.reset();
   EncodeVideoFrame(video_frame, time_when_posted_us);
@@ -976,7 +976,6 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
   bool video_suspension_changed = video_is_suspended != EncoderPaused();
   last_observed_bitrate_bps_ = bitrate_bps;
 
-  video_is_suspended = false;
   if (video_suspension_changed) {
     RTC_LOG(LS_INFO) << "Video suspend state changed to: "
                      << (video_is_suspended ? "suspended" : "not suspended");
