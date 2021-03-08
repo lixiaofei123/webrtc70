@@ -603,8 +603,8 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(uint32_t bitrate_bps,
       << "VideoSendStream::Start has not been called.";
 
    RTC_LOG(LS_INFO) << "OnBitrateUpdated---> bitrate_bps = "
-                     << ToString(int(bitrate_bps)) << "  fraction_loss = " << ToString(int(fraction_loss))
-                     << " rtt = " << ToString(int(rtt)) << "  probing_interval_ms = " << ToString(int(probing_interval_ms));
+                     << bitrate_bps << "  fraction_loss = " << fraction_loss
+                     << " rtt = " << rtt << "  probing_interval_ms = " << probing_interval_ms;
 
   // Substract overhead from bitrate.
   rtc::CritScope lock(&overhead_bytes_per_packet_crit_);
@@ -638,10 +638,10 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(uint32_t bitrate_bps,
           : 0;
 
   RTC_LOG(LS_INFO) << "OnBitrateUpdated---> send_side_bwe_with_overhead_ = "
-                     << ToString(int(send_side_bwe_with_overhead_)) << "  encoder_overhead_rate_bps = " << 
-                     ToString(int(encoder_overhead_rate_bps))
-                     << " protection_bitrate = " << ToString(int(protection_bitrate)) 
-                     << " encoder_target_rate_bps_ = " << ToString(int(encoder_target_rate_bps_));
+                     << send_side_bwe_with_overhead_ << "  encoder_overhead_rate_bps = " << 
+                     encoder_overhead_rate_bps
+                     << " protection_bitrate = " << protection_bitrate
+                     << " encoder_target_rate_bps_ = " << encoder_target_rate_bps_;
 
   // When the field trial "WebRTC-SendSideBwe-WithOverhead" is enabled
   // protection_bitrate includes overhead.
@@ -649,8 +649,8 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(uint32_t bitrate_bps,
       bitrate_bps - (encoder_target_rate_bps_ + encoder_overhead_rate_bps);
 
   RTC_LOG(LS_INFO) << "OnBitrateUpdated---> protection_bitrate2 = "
-            << ToString(int(protection_bitrate)) << " encoder_max_bitrate_bps_ = " << ToString(int(encoder_max_bitrate_bps_))
-             << " encoder_target_rate_bps_ = " << ToString(int(encoder_target_rate_bps_));
+            << protection_bitrate << " encoder_max_bitrate_bps_ = " << encoder_max_bitrate_bps_
+             << " encoder_target_rate_bps_ = " << encoder_target_rate_bps_;
 
   encoder_target_rate_bps_ =
       std::min(encoder_max_bitrate_bps_, encoder_target_rate_bps_);
