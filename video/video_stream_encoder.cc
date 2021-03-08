@@ -976,7 +976,6 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
   bool video_suspension_changed = video_is_suspended != EncoderPaused();
   last_observed_bitrate_bps_ = bitrate_bps;
 
-
   video_is_suspended = false
   if (video_suspension_changed) {
     RTC_LOG(LS_INFO) << "Video suspend state changed to: "
