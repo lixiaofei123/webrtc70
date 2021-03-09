@@ -276,11 +276,11 @@ void PacedVideoSender::QueuePackets(Packets* batch,
     return;
   }
   Packets::iterator it = queue_.begin();
-  for (; it != queue_.end(); ++it) {
-    if ((*it)->send_time_us() > end_of_batch_time_us) {
-      break;
-    }
-  }
+  // for (; it != queue_.end(); ++it) {
+  //   if ((*it)->send_time_us() > end_of_batch_time_us) {
+  //     break;
+  //   }
+  // }
   Packets to_transfer;
   to_transfer.splice(to_transfer.begin(), queue_, queue_.begin(), it);
   bwe_->OnPacketsSent(to_transfer);
